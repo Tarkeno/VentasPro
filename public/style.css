@@ -1,0 +1,1204 @@
+
+/* Configuración general */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+.contenedor {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Menú lateral */
+.sidebar {
+    width: 260px;
+    background: #0f172a;
+    color: white;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+.sidebar h2 {
+    font-size: 26px;
+    color: #38bdf8;
+}
+
+.subtitulo {
+    color: #94a3b8;
+    font-size: 13px;
+    margin-top: 5px;
+    margin-bottom: 35px;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar nav a {
+    color: #cbd5e1;
+    text-decoration: none;
+    padding: 14px 15px;
+    border-radius: 10px;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.sidebar nav a:hover {
+    background: #1e293b;
+    color: white;
+}
+
+.sidebar nav a.activo {
+    background: #2563eb;
+    color: white;
+}
+
+.usuario {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid #334155;
+}
+
+.usuario p {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.usuario small {
+    color: #94a3b8;
+}
+
+/* Contenido principal */
+.contenido {
+    flex: 1;
+    min-width: 0;
+    padding: 35px;
+}
+
+.encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+    gap: 20px;
+}
+
+.encabezado h1 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.encabezado p {
+    color: #64748b;
+}
+
+.perfil {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: white;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #0000000a;
+}
+
+/* Secciones */
+.seccion {
+    display: none;
+}
+
+.seccion.activa {
+    display: block;
+}
+
+.seccion h2 {
+    font-size: 23px;
+    margin-bottom: 25px;
+}
+
+/* Tarjetas del dashboard */
+.tarjetas {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.tarjeta {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px #00000008;
+    border: 1px solid #e2e8f0;
+    transition: 0.3s;
+}
+
+.tarjeta:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px #00000012;
+}
+
+.tarjeta h3 {
+    font-size: 15px;
+    color: #64748b;
+    margin-bottom: 15px;
+}
+
+.tarjeta p {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2563eb;
+    margin-bottom: 10px;
+}
+
+.tarjeta small {
+    color: #94a3b8;
+}
+
+/* Paneles */
+.panel {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 15px #00000008;
+}
+
+.panel h3 {
+    margin-bottom: 15px;
+}
+
+.panel p {
+    color: #64748b;
+    line-height: 1.6;
+}
+
+/* Adaptación a pantallas pequeñas */
+@media (max-width: 1100px) {
+    .tarjetas {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+    .contenedor {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+    }
+
+    .sidebar nav {
+        flex-direction: row;
+        overflow-x: auto;
+    }
+
+    .sidebar nav a {
+        white-space: nowrap;
+    }
+
+    .usuario {
+        margin-top: 20px;
+    }
+
+    .contenido {
+        padding: 20px;
+    }
+
+    .encabezado {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .tarjetas {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ==================================
+   FORMULARIO DE PRODUCTOS
+================================== */
+
+.form-producto {
+    margin: 25px 0;
+    padding: 25px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+}
+
+.form-producto h3 {
+    font-size: 18px;
+    color: #1e293b;
+    margin-bottom: 20px;
+}
+
+/* Distribución de los campos */
+.campos-producto {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+/* Etiquetas */
+.campos-producto label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 8px;
+}
+
+/* Campos de entrada */
+.campos-producto input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    background: white;
+    outline: none;
+    transition: 0.2s;
+}
+
+/* Efecto al seleccionar un campo */
+.campos-producto input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px #2563eb20;
+}
+
+/* Botón para guardar */
+.btn-guardar {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 13px 22px;
+    border-radius: 9px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-guardar:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+}
+
+.btn-guardar:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Mensaje de resultado */
+#mensaje-producto {
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Adaptación a celulares */
+@media (max-width: 900px) {
+    .campos-producto {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =====================================
+   BOTONES DEL CRUD DE PRODUCTOS
+===================================== */
+
+/* Botón Editar */
+.btn-editar {
+    background: #eff6ff;
+    color: #2563eb;
+    border: 1px solid #bfdbfe;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-right: 8px;
+}
+
+.btn-editar:hover {
+    background: #2563eb;
+    color: white;
+    border-color: #2563eb;
+    transform: translateY(-2px);
+}
+
+/* Botón Eliminar */
+.btn-eliminar {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-eliminar:hover {
+    background: #dc2626;
+    color: white;
+    border-color: #dc2626;
+    transform: translateY(-2px);
+}
+
+/* Botón Cancelar edición */
+.btn-cancelar {
+    background: #e2e8f0;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+    padding: 13px 22px;
+    border-radius: 9px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-left: 10px;
+}
+
+.btn-cancelar:hover {
+    background: #cbd5e1;
+    transform: translateY(-2px);
+}
+
+/* Botones al recibir clic o navegar con teclado */
+.btn-editar:focus-visible,
+.btn-eliminar:focus-visible,
+.btn-cancelar:focus-visible,
+.btn-guardar:focus-visible {
+    outline: 3px solid #93c5fd;
+    outline-offset: 3px;
+}
+
+/* Espaciado de las filas */
+#tabla-productos tbody tr {
+    border-bottom: 1px solid #e2e8f0;
+    transition: background 0.2s;
+}
+
+#tabla-productos tbody tr:hover {
+    background: #f8fafc;
+}
+
+#tabla-productos tbody tr:last-child {
+    border-bottom: none;
+}
+
+/* Adaptación a pantallas pequeñas */
+@media (max-width: 700px) {
+    .btn-editar,
+    .btn-eliminar {
+        margin-bottom: 6px;
+    }
+
+    .btn-cancelar {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}
+
+/* =====================================
+   TABLA DE CLIENTES
+===================================== */
+
+#tabla-clientes {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+#tabla-clientes thead {
+    background: #f1f5f9;
+}
+
+#tabla-clientes th {
+    padding: 15px;
+    text-align: left;
+    color: #334155;
+    font-weight: 700;
+}
+
+#tabla-clientes td {
+    padding: 15px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #475569;
+}
+
+#tabla-clientes tbody tr {
+    transition: background 0.2s ease;
+}
+
+#tabla-clientes tbody tr:hover {
+    background: #f8fafc;
+}
+
+#tabla-clientes td:last-child {
+    white-space: nowrap;
+}
+
+#mensaje-cliente {
+    margin-top: 12px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+#tabla-clientes .btn-editar,
+#tabla-clientes .btn-eliminar {
+    padding: 8px 12px;
+    font-size: 13px;
+}
+
+@media (max-width: 768px) {
+    #tabla-clientes {
+        min-width: 850px;
+    }
+}
+
+
+/* ==========================================
+   HISTORIAL DE VENTAS
+========================================== */
+
+#tabla-historial {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1100px;
+    margin-top: 15px;
+    background: white;
+    font-size: 14px;
+}
+
+#tabla-historial thead {
+    background-color: #f1f5f9;
+}
+
+#tabla-historial th {
+    padding: 16px 14px;
+    text-align: left;
+    color: #1e293b;
+    font-weight: 700;
+    white-space: nowrap;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+#tabla-historial td {
+    padding: 15px 14px;
+    color: #475569;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: middle;
+}
+
+#tabla-historial tbody tr:nth-child(even) {
+    background-color: #f8fafc;
+}
+
+#tabla-historial tbody tr:hover {
+    background-color: #eff6ff;
+}
+
+#tabla-historial td:nth-child(1) {
+    font-weight: 700;
+    color: #2563eb;
+}
+
+#tabla-historial td:nth-child(6),
+#tabla-historial td:nth-child(7),
+#tabla-historial td:nth-child(8) {
+    text-align: right;
+    white-space: nowrap;
+}
+
+#tabla-historial th:nth-child(6),
+#tabla-historial th:nth-child(7),
+#tabla-historial th:nth-child(8) {
+    text-align: right;
+}
+
+#tabla-historial td:last-child {
+    font-weight: 600;
+    color: #16a34a;
+    text-transform: capitalize;
+}
+
+#mensaje-historial {
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+
+/* ==========================================
+   NOTIFICACIONES - VENTASPRO
+========================================== */
+
+.resumen-notificaciones {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin: 25px 0;
+}
+
+.tarjeta-notificacion {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tarjeta-notificacion span {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.tarjeta-notificacion strong {
+    font-size: 30px;
+    color: #2563eb;
+}
+
+.acciones-notificaciones {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#filtro-notificaciones {
+    padding: 12px 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: white;
+    color: #334155;
+    font-size: 14px;
+}
+
+.lista-notificaciones {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.item-notificacion {
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: white;
+}
+
+.item-notificacion.no-leida {
+    background: #eff6ff;
+    border-left: 4px solid #2563eb;
+}
+
+.item-notificacion.leida {
+    border-left: 4px solid #cbd5e1;
+}
+
+.notificacion-encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.notificacion-titulo {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.notificacion-fecha {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.notificacion-mensaje {
+    color: #475569;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.notificacion-estado {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    background: #e2e8f0;
+    color: #475569;
+}
+
+.no-leida .notificacion-estado {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.btn-marcar-leida {
+    background: #16a34a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 14px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.btn-marcar-leida:hover {
+    background: #15803d;
+}
+
+.btn-marcar-leida:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+#mensaje-notificaciones {
+    font-size: 14px;
+    margin: 12px 0;
+}
+
+@media (max-width: 768px) {
+    .resumen-notificaciones {
+        grid-template-columns: 1fr;
+    }
+
+    .acciones-notificaciones {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .btn-marcar-leida {
+        margin: 10px 0 0;
+    }
+}
+
+
+/* ==========================================
+   LOGIN - VENTASPRO
+========================================== */
+
+.pantalla-login {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: linear-gradient(
+        135deg,
+        #0f172a,
+        #1e3a8a,
+        #2563eb
+    );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.login-contenedor {
+    background: #ffffff;
+    width: 100%;
+    max-width: 420px;
+    padding: 40px 35px;
+    border-radius: 18px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    text-align: center;
+}
+
+.login-logo {
+    font-size: 45px;
+    margin-bottom: 12px;
+}
+
+.login-contenedor h1 {
+    color: #1e293b;
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.login-subtitulo {
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+.login-campo {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.login-campo label {
+    display: block;
+    color: #334155;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.login-campo input {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.login-campo input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.btn-login {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 9px;
+    background: #2563eb;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-login:hover {
+    background: #1d4ed8;
+}
+
+.btn-login:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+#mensaje-login {
+    font-size: 13px;
+    margin-bottom: 15px;
+    color: #dc2626;
+}
+
+.login-pie {
+    margin-top: 25px;
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+@media (max-width: 480px) {
+    .login-contenedor {
+        padding: 30px 22px;
+    }
+}
+
+
+/* ==========================================
+   CERRAR SESIÓN - VENTASPRO
+========================================== */
+
+.btn-cerrar-sesion {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    background: #dc2626;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-cerrar-sesion:hover {
+    background: #b91c1c;
+}
+
+.btn-cerrar-sesion:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ==========================================
+   GESTIÓN DE USUARIOS Y ROLES - VENTASPRO
+========================================== */
+
+/* Tarjetas de estadísticas */
+
+#usuarios .tarjetas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+#usuarios .tarjeta {
+    border-top: 4px solid #2563eb;
+}
+
+#usuarios .tarjeta:nth-child(2) {
+    border-top-color: #7c3aed;
+}
+
+#usuarios .tarjeta:nth-child(3) {
+    border-top-color: #0891b2;
+}
+
+#usuarios .tarjeta:nth-child(4) {
+    border-top-color: #16a34a;
+}
+
+#usuarios .tarjeta:nth-child(5) {
+    border-top-color: #f59e0b;
+}
+
+/* Formulario de usuarios */
+
+#form-usuario {
+    margin-top: 20px;
+    margin-bottom: 25px;
+}
+
+#form-usuario input,
+#form-usuario select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+}
+
+#form-usuario input:focus,
+#form-usuario select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+#form-usuario input:disabled,
+#form-usuario select:disabled {
+    background-color: #e2e8f0;
+    color: #64748b;
+    cursor: not-allowed;
+}
+
+/* Tabla de usuarios */
+
+#tabla-usuarios {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 850px;
+    font-size: 14px;
+}
+
+#tabla-usuarios thead {
+    background-color: #f1f5f9;
+    color: #334155;
+}
+
+#tabla-usuarios th {
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+#tabla-usuarios td {
+    padding: 15px;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: middle;
+}
+
+#tabla-usuarios tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+/* Columna de estado */
+
+#tabla-usuarios td:nth-child(6) {
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+/* Botones de acciones */
+
+#tabla-usuarios td:last-child {
+    white-space: nowrap;
+}
+
+#tabla-usuarios button {
+    margin: 3px;
+    padding: 8px 12px;
+    font-size: 12px;
+    border-radius: 6px;
+}
+
+#tabla-usuarios button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Mensajes del formulario */
+
+#mensaje-usuario {
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Diseño adaptable */
+
+@media (max-width: 768px) {
+
+    #usuarios .tarjetas {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #form-usuario .campos-producto {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    #usuarios .tarjetas {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+/* ==========================================
+   HISTORIAL DE ACTIVIDADES - VENTASPRO
+========================================== */
+
+/* TARJETAS DE ESTADÍSTICAS */
+
+#actividades .tarjetas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+#actividades .tarjeta {
+    border-top: 4px solid #2563eb;
+}
+
+#actividades .tarjeta:nth-child(2) {
+    border-top-color: #16a34a;
+}
+
+#actividades .tarjeta:nth-child(3) {
+    border-top-color: #dc2626;
+}
+
+#actividades .tarjeta:nth-child(4) {
+    border-top-color: #7c3aed;
+}
+
+/* FILTROS DE ACTIVIDADES */
+
+.filtros-actividades {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+}
+
+.filtros-actividades .campo-filtro {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filtros-actividades label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+}
+
+.filtros-actividades select,
+.filtros-actividades input {
+    width: 100%;
+    min-height: 42px;
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #1e293b;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.filtros-actividades select:focus,
+.filtros-actividades input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* BOTONES DE ACTIVIDADES */
+
+.acciones-actividades {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.acciones-actividades button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* TABLA DE ACTIVIDADES */
+
+#tabla-actividades {
+    width: 100%;
+    min-width: 1050px;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+#tabla-actividades thead {
+    background-color: #f1f5f9;
+    color: #334155;
+}
+
+#tabla-actividades th {
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+#tabla-actividades td {
+    padding: 15px;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: middle;
+    color: #334155;
+}
+
+#tabla-actividades tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+#tabla-actividades td:first-child {
+    white-space: nowrap;
+    font-size: 13px;
+}
+
+#tabla-actividades td:nth-child(6) {
+    min-width: 220px;
+    line-height: 1.5;
+}
+
+/* ETIQUETAS DE RESULTADO */
+
+.resultado-actividad {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    background-color: #f1f5f9;
+    color: #475569;
+}
+
+.resultado-exitoso {
+    background-color: #dcfce7;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+}
+
+.resultado-fallido {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+}
+
+/* MENSAJES Y CONTADOR */
+
+#mensaje-actividades {
+    margin: 15px 0;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+#cantidad-actividades {
+    margin-top: 20px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+/* DISEÑO RESPONSIVO */
+
+@media (max-width: 768px) {
+
+    #actividades .tarjetas {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .filtros-actividades {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    #actividades .tarjetas,
+    .filtros-actividades {
+        grid-template-columns: 1fr;
+    }
+
+    .acciones-actividades {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+}

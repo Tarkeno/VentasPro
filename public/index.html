@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sistema de Ventas Híbrido</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+
+<!-- =====================================
+     LOGIN - VENTASPRO
+====================================== -->
+
+<div id="pantalla-login" class="pantalla-login">
+
+    <div class="login-contenedor">
+
+        <div class="login-logo">🛒</div>
+
+        <h1>VentasPro</h1>
+
+        <p class="login-subtitulo">
+            Sistema de gestión de ventas
+        </p>
+
+        <form id="form-login">
+
+            <div class="login-campo">
+                <label for="login-correo">
+                    Correo electrónico
+                </label>
+
+                <input
+                    type="email"
+                    id="login-correo"
+                    placeholder="Ingresa tu correo"
+                    autocomplete="username"
+                    required
+                >
+            </div>
+
+            <div class="login-campo">
+                <label for="login-password">
+                    Contraseña
+                </label>
+
+                <input
+                    type="password"
+                    id="login-password"
+                    placeholder="Ingresa tu contraseña"
+                    autocomplete="current-password"
+                    required
+                >
+            </div>
+
+            <p id="mensaje-login" role="status"></p>
+
+            <button
+                type="submit"
+                id="btn-login"
+                class="btn-login"
+            >
+                Iniciar sesión
+            </button>
+
+        </form>
+
+        <p class="login-pie">
+            Acceso exclusivo para usuarios autorizados
+        </p>
+
+    </div>
+
+</div>
+
+
+    <div class="contenedor">
+
+        <!-- =====================================
+             MENÚ LATERAL
+        ====================================== -->
+        <aside class="sidebar">
+
+            <h2>🛒 VentasPro</h2>
+            <p class="subtitulo">Sistema de Ventas</p>
+
+            <nav>
+                <a href="#" class="activo" data-seccion="dashboard" data-roles="administrador gerente vendedor">
+                    📊 Dashboard
+                </a>
+
+                <a href="#" data-seccion="productos" data-roles="administrador gerente vendedor cliente">
+                    📦 Productos
+                </a>
+
+                <a href="#" data-seccion="clientes" data-roles="administrador gerente vendedor">
+                    👥 Clientes
+                </a>
+
+                <a href="#" data-seccion="ventas" data-roles="administrador gerente vendedor">
+                    🛍️ Ventas
+                </a>
+
+                <a href="#" data-seccion="historial" data-roles="administrador gerente vendedor">
+                    📋 Historial
+                </a>
+
+                <a href="#" data-seccion="notificaciones" data-roles="administrador gerente">
+                    🔔 Notificaciones
+                </a>
+
+                <a href="#" data-seccion="actividades" data-roles="administrador gerente">
+                    📋 Actividades
+                </a>
+
+
+                <a href="#" data-seccion="usuarios" data-roles="administrador">
+                    🔐 Usuarios y roles
+                </a>
+            </nav>
+
+           
+<!-- =====================================
+     USUARIO AUTENTICADO
+====================================== -->
+<div class="usuario">
+
+    <p id="nombre-usuario-sidebar">
+        👤 Usuario
+    </p>
+
+    <small id="rol-usuario-sidebar">
+        Cargando sesión...
+    </small>
+
+    <button
+        type="button"
+        id="btn-cerrar-sesion"
+        class="btn-cerrar-sesion"
+    >
+        🚪 Cerrar sesión
+    </button>
+
+</div>
+        </aside>
+
+
+
+        <!-- =====================================
+             CONTENIDO PRINCIPAL
+        ====================================== -->
+        <main class="contenido">
+
+            <header class="encabezado">
+
+                <div>
+                    <h1>Panel de control</h1>
+                    <p>Bienvenido al Sistema de Ventas Híbrido</p>
+                </div>
+
+                
+<div class="perfil">
+
+    <span data-roles="administrador gerente">🔔</span>
+
+    <span id="nombre-usuario-header">
+        👤 Usuario
+    </span>
+
+</div>
+            </header>
+
+
+
+            <!-- =====================================
+                 DASHBOARD
+            ====================================== -->
+            <section data-roles="administrador gerente vendedor" id="dashboard" class="seccion activa">
+
+                <h2>Resumen general</h2>
+
+                <div class="tarjetas">
+
+                    <div class="tarjeta">
+                        <h3>Productos</h3>
+                        <p id="total-productos">--</p>
+                        <small>Productos registrados</small>
+                    </div>
+
+                    <div class="tarjeta">
+                        <h3>Ventas</h3>
+                        <p id="total-ventas">--</p>
+                        <small>Ventas realizadas</small>
+                    </div>
+
+                    <div class="tarjeta">
+                        <h3>Ingresos</h3>
+                        <p id="total-ingresos">--</p>
+                        <small>Total vendido</small>
+                    </div>
+
+                    <div class="tarjeta" data-roles="administrador gerente">
+                        <h3>Notificaciones</h3>
+                        <p id="total-notificaciones">--</p>
+                        <small>Pendientes de lectura</small>
+                    </div>
+
+                </div>
+
+                <div class="panel">
+                    <h3>Actividad reciente</h3>
+                    <p>Aquí aparecerán las últimas ventas registradas.</p>
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 PRODUCTOS
+            ====================================== -->
+            <section data-roles="administrador gerente vendedor cliente" id="productos" class="seccion">
+
+                <h2>Gestión de productos</h2>
+
+                <div class="panel">
+
+                    <h3>Lista de productos</h3>
+                    <p>Productos registrados en Supabase.</p>
+
+                    <!-- FORMULARIO -->
+                    <form data-roles="administrador gerente" id="form-producto" class="form-producto">
+
+                        <!-- ID oculto para editar -->
+                        <input type="hidden" id="id-producto" value="">
+
+                        <h3 id="titulo-form-producto">
+                            Agregar nuevo producto
+                        </h3>
+
+                        <div class="campos-producto">
+
+                            <!-- Nombre -->
+                            <div>
+                                <label for="nombre-producto">
+                                    Nombre
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="nombre-producto"
+                                    placeholder="Ej. Teclado Gamer"
+                                    required
+                                >
+                            </div>
+
+                            <!-- Descripción -->
+                            <div>
+                                <label for="descripcion-producto">
+                                    Descripción
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="descripcion-producto"
+                                    placeholder="Ej. Teclado mecánico RGB"
+                                >
+                            </div>
+
+                            <!-- Precio -->
+                            <div>
+                                <label for="precio-producto">
+                                    Precio
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="precio-producto"
+                                    placeholder="Ej. 450"
+                                    min="0.01"
+                                    step="0.01"
+                                    required
+                                >
+                            </div>
+
+                            <!-- Stock -->
+                            <div>
+                                <label for="stock-producto">
+                                    Stock
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="stock-producto"
+                                    placeholder="Ej. 20"
+                                    min="0"
+                                    step="1"
+                                    required
+                                >
+                            </div>
+
+                        </div>
+
+                        <!-- Botones -->
+                        <button
+                            type="submit"
+                            class="btn-guardar"
+                            id="btn-guardar-producto"
+                        >
+                            + Guardar producto
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn-cancelar"
+                            id="btn-cancelar-edicion"
+                            style="display: none;"
+                        >
+                            Cancelar edición
+                        </button>
+
+                        <!-- Mensajes -->
+                        <p id="mensaje-producto" role="status"></p>
+
+                    </form>
+
+
+                    <!-- TABLA DE PRODUCTOS -->
+                    <div style="overflow-x: auto; margin-top: 20px;">
+
+                        <table
+                            id="tabla-productos"
+                            style="width: 100%; border-collapse: collapse;"
+                        >
+
+                            <thead>
+                                <tr style="background: #f1f5f9; text-align: left;">
+
+                                    <th style="padding: 15px;">ID</th>
+                                    <th style="padding: 15px;">Nombre</th>
+                                    <th style="padding: 15px;">Precio</th>
+                                    <th style="padding: 15px;">Stock</th>
+                                    <th data-roles="administrador gerente" style="padding: 15px;">Acciones</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody id="lista-productos">
+                                <tr>
+                                    <td colspan="5" style="padding: 20px;">
+                                        Cargando productos...
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+<!-- =====================================
+     GESTIÓN DE CLIENTES
+===================================== -->
+<section data-roles="administrador gerente vendedor" id="clientes" class="seccion">
+
+    <h2>Gestión de clientes</h2>
+
+    <div class="panel">
+
+        <h3>Lista de clientes</h3>
+        <p>Clientes registrados en Supabase.</p>
+
+        <!-- FORMULARIO -->
+        <form data-roles="administrador gerente" id="form-cliente" class="form-producto">
+
+            <input type="hidden" id="id-cliente">
+
+            <h3 id="titulo-form-cliente">
+                Agregar nuevo cliente
+            </h3>
+
+            <div class="campos-producto">
+
+                <div>
+                    <label for="nombre-cliente">Nombre</label>
+                    <input
+                        type="text"
+                        id="nombre-cliente"
+                        placeholder="Ej. Carlos"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label for="apellidos-cliente">Apellidos</label>
+                    <input
+                        type="text"
+                        id="apellidos-cliente"
+                        placeholder="Ej. Hernández López"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label for="correo-cliente">Correo electrónico</label>
+                    <input
+                        type="email"
+                        id="correo-cliente"
+                        placeholder="Ej. carlos@gmail.com"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label for="telefono-cliente">Teléfono</label>
+                    <input
+                        type="tel"
+                        id="telefono-cliente"
+                        placeholder="Ej. 7711234567"
+                        pattern="[0-9]{10}"
+                        maxlength="10"
+                        required
+                    >
+                </div>
+
+            </div>
+
+            <button
+                type="submit"
+                class="btn-guardar"
+                id="btn-guardar-cliente"
+            >
+                + Guardar cliente
+            </button>
+
+            <button
+                type="button"
+                class="btn-cancelar"
+                id="btn-cancelar-cliente"
+                style="display: none;"
+            >
+                Cancelar edición
+            </button>
+
+            <p id="mensaje-cliente" role="status"></p>
+
+        </form>
+
+        <!-- TABLA -->
+        <div style="overflow-x: auto; margin-top: 20px;">
+
+            <table id="tabla-clientes">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Correo</th>
+                        <th>Teléfono</th>
+                        <th data-roles="administrador gerente">Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody id="lista-clientes">
+                    <tr>
+                        <td colspan="6">
+                            Cargando clientes...
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+            
+<!-- =====================================
+     REGISTRO DE VENTAS
+====================================== -->
+<section data-roles="administrador gerente vendedor" id="ventas" class="seccion">
+
+    <h2>Registro de ventas</h2>
+
+    <div class="panel">
+
+        <h3>Registrar nueva venta</h3>
+        <p>Selecciona un cliente y un producto para registrar la venta.</p>
+
+        <form id="form-venta" class="form-producto">
+
+            <div class="campos-producto">
+
+                <!-- CLIENTE -->
+                <div>
+                    <label for="cliente-venta">Cliente</label>
+
+                    <select id="cliente-venta" required>
+                        <option value="">Seleccionar cliente</option>
+                    </select>
+                </div>
+
+                <!-- PRODUCTO -->
+                <div>
+                    <label for="producto-venta">Producto</label>
+
+                    <select id="producto-venta" required>
+                        <option value="">Seleccionar producto</option>
+                    </select>
+                </div>
+
+                <!-- CANTIDAD -->
+                <div>
+                    <label for="cantidad-venta">Cantidad</label>
+
+                    <input
+                        type="number"
+                        id="cantidad-venta"
+                        min="1"
+                        step="1"
+                        value="1"
+                        required
+                    >
+                </div>
+
+                <!-- PRECIO -->
+                <div>
+                    <label for="precio-venta">Precio unitario</label>
+
+                    <input
+                        type="text"
+                        id="precio-venta"
+                        placeholder="$0.00"
+                        readonly
+                    >
+                </div>
+
+                <!-- STOCK -->
+                <div>
+                    <label for="stock-venta">Stock disponible</label>
+
+                    <input
+                        type="text"
+                        id="stock-venta"
+                        placeholder="0"
+                        readonly
+                    >
+                </div>
+
+                <!-- TOTAL -->
+                <div>
+                    <label for="total-venta">Total de la venta</label>
+
+                    <input
+                        type="text"
+                        id="total-venta"
+                        placeholder="$0.00"
+                        readonly
+                    >
+                </div>
+
+            </div>
+
+            <button
+                type="submit"
+                class="btn-guardar"
+                id="btn-registrar-venta"
+            >
+                🛒 Registrar venta
+            </button>
+
+            <p id="mensaje-venta" role="status"></p>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+
+           
+<!-- =====================================
+     HISTORIAL DE VENTAS
+====================================== -->
+<section data-roles="administrador gerente vendedor" id="historial" class="seccion">
+
+    <h2>Historial de ventas</h2>
+
+    <div class="panel">
+
+        <h3>Ventas registradas</h3>
+        <p>Consulta todas las ventas realizadas en el sistema.</p>
+
+        <div style="margin: 20px 0;">
+            <button
+                type="button"
+                class="btn-guardar"
+                id="btn-actualizar-historial"
+            >
+                🔄 Actualizar historial
+            </button>
+        </div>
+
+        <p id="mensaje-historial" role="status"></p>
+
+        <div style="overflow-x: auto; margin-top: 20px;">
+
+            <table id="tabla-historial">
+
+                <thead>
+                    <tr>
+                        <th>ID Venta</th>
+                        <th>Fecha</th>
+                        <th>Cliente</th>
+                        <th>Usuario</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio unitario</th>
+                        <th>Total</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+
+                <tbody id="lista-historial">
+                    <tr>
+                        <td colspan="9">
+                            Cargando historial...
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+           
+<!-- =====================================
+     NOTIFICACIONES - FIREBASE
+====================================== -->
+<section data-roles="administrador gerente" id="notificaciones" class="seccion">
+
+    <h2>Centro de notificaciones</h2>
+
+    <div class="panel">
+
+        <h3>🔔 Notificaciones del sistema</h3>
+
+        <p>
+            Consulta los avisos generados por las
+            operaciones realizadas en VentasPro.
+        </p>
+
+        <!-- RESUMEN -->
+        <div class="resumen-notificaciones">
+
+            <div class="tarjeta-notificacion">
+                <span>Total de notificaciones</span>
+                <strong id="notif-total">0</strong>
+            </div>
+
+            <div class="tarjeta-notificacion">
+                <span>Pendientes de lectura</span>
+                <strong id="notif-pendientes">0</strong>
+            </div>
+
+            <div class="tarjeta-notificacion">
+                <span>Notificaciones leídas</span>
+                <strong id="notif-leidas">0</strong>
+            </div>
+
+        </div>
+
+        <!-- CONTROLES -->
+        <div class="acciones-notificaciones">
+
+            <button
+                type="button"
+                class="btn-guardar"
+                id="btn-actualizar-notificaciones"
+            >
+                🔄 Actualizar notificaciones
+            </button>
+
+            <select id="filtro-notificaciones">
+                <option value="todas">Todas</option>
+                <option value="pendientes">No leídas</option>
+                <option value="leidas">Leídas</option>
+            </select>
+
+        </div>
+
+        <!-- MENSAJES -->
+        <p id="mensaje-notificaciones" role="status"></p>
+
+        <!-- LISTADO -->
+        <div id="lista-notificaciones" class="lista-notificaciones">
+
+            <p>Cargando notificaciones...</p>
+
+        </div>
+
+    </div>
+
+</section>
+            <!-- =====================================
+                 USUARIOS Y ROLES
+            ====================================== -->
+            <!-- =====================================
+     GESTIÓN DE USUARIOS Y ROLES
+====================================== -->
+
+
+<!-- ==========================================
+     HISTORIAL DE ACTIVIDADES - VENTASPRO
+========================================== -->
+
+<section
+    id="actividades"
+    class="seccion"
+    data-roles="administrador gerente"
+>
+
+    <h2>Historial de actividades</h2>
+
+    <p>
+        Consulta las operaciones realizadas por los usuarios
+        dentro del sistema VentasPro.
+    </p>
+
+    <!-- TARJETAS DE ESTADÍSTICAS -->
+
+    <div class="tarjetas">
+
+        <div class="tarjeta">
+            <h3>Total de actividades</h3>
+            <p id="total-actividades">0</p>
+            <small>Operaciones registradas</small>
+        </div>
+
+        <div class="tarjeta">
+            <h3>Operaciones exitosas</h3>
+            <p id="actividades-exitosas">0</p>
+            <small>Acciones completadas</small>
+        </div>
+
+        <div class="tarjeta">
+            <h3>Operaciones fallidas</h3>
+            <p id="actividades-fallidas">0</p>
+            <small>Incidencias registradas</small>
+        </div>
+
+        <div class="tarjeta">
+            <h3>Actividades de hoy</h3>
+            <p id="actividades-hoy">0</p>
+            <small>Movimientos del día</small>
+        </div>
+
+    </div>
+
+    <!-- PANEL PRINCIPAL -->
+
+    <div class="panel">
+
+        <h3>Registro de auditoría</h3>
+
+        <p>
+            Historial de operaciones almacenado en Firebase Firestore.
+        </p>
+
+        <!-- FILTROS -->
+
+        <div class="filtros-actividades">
+
+            <div class="campo-filtro">
+
+                <label for="filtro-modulo-actividad">
+                    Módulo
+                </label>
+
+                <select id="filtro-modulo-actividad">
+
+                    <option value="todos">
+                        Todos los módulos
+                    </option>
+
+                    <option value="autenticacion">
+                        Autenticación
+                    </option>
+
+                    <option value="productos">
+                        Productos
+                    </option>
+
+                    <option value="clientes">
+                        Clientes
+                    </option>
+
+                    <option value="ventas">
+                        Ventas
+                    </option>
+
+                    <option value="usuarios">
+                        Usuarios
+                    </option>
+
+                    <option value="notificaciones">
+                        Notificaciones
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="campo-filtro">
+
+                <label for="filtro-usuario-actividad">
+                    Usuario
+                </label>
+
+                <select id="filtro-usuario-actividad">
+
+                    <option value="todos">
+                        Todos los usuarios
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="campo-filtro">
+
+                <label for="filtro-resultado-actividad">
+                    Resultado
+                </label>
+
+                <select id="filtro-resultado-actividad">
+
+                    <option value="todos">
+                        Todos los resultados
+                    </option>
+
+                    <option value="exitoso">
+                        Exitoso
+                    </option>
+
+                    <option value="fallido">
+                        Fallido
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="campo-filtro">
+
+                <label for="filtro-fecha-actividad">
+                    Fecha
+                </label>
+
+                <input
+                    type="date"
+                    id="filtro-fecha-actividad"
+                >
+
+            </div>
+
+        </div>
+
+        <!-- BOTONES -->
+
+        <div class="acciones-actividades">
+
+            <button
+                type="button"
+                id="btn-actualizar-actividades"
+                class="btn-guardar"
+            >
+                🔄 Actualizar actividades
+            </button>
+
+            <button
+                type="button"
+                id="btn-limpiar-filtros-actividades"
+                class="btn-cancelar"
+            >
+                Limpiar filtros
+            </button>
+
+        </div>
+
+        <p id="mensaje-actividades" role="status"></p>
+
+        <!-- TABLA DE ACTIVIDADES -->
+
+        <div style="overflow-x: auto;">
+
+            <table id="tabla-actividades">
+
+                <thead>
+
+                    <tr>
+                        <th>Fecha y hora</th>
+                        <th>Usuario</th>
+                        <th>Rol</th>
+                        <th>Módulo</th>
+                        <th>Acción</th>
+                        <th>Descripción</th>
+                        <th>Resultado</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="lista-actividades">
+
+                    <tr>
+                        <td colspan="7">
+                            Cargando actividades...
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <p id="cantidad-actividades">
+            Mostrando 0 actividades
+        </p>
+
+    </div>
+
+</section>
+
+<section id="usuarios" class="seccion" data-roles="administrador">
+
+    <h2>Gestión de usuarios y roles</h2>
+
+    <!-- RESUMEN DE USUARIOS -->
+
+    <div class="tarjetas">
+
+        <div class="tarjeta">
+            <h3>Total de usuarios</h3>
+            <p id="total-usuarios">0</p>
+            <small>Usuarios registrados</small>
+        </div>
+
+        <div class="tarjeta">
+            <h3>Administradores</h3>
+            <p id="total-administradores">0</p>
+            <small>Acceso completo</small>
+        </div>
+
+        <div class="tarjeta">
+            <h3>Gerentes</h3>
+            <p id="total-gerentes">0</p>
+            <small>Gestión operativa</small>
+        </div>
+
+        <div class="tarjeta">
+            <h3>Vendedores</h3>
+            <p id="total-vendedores">0</p>
+            <small>Gestión de ventas</small>
+        </div>
+
+        <div class="tarjeta">
+            <h3>Clientes</h3>
+            <p id="total-usuarios-clientes">0</p>
+            <small>Consulta de productos</small>
+        </div>
+
+    </div>
+
+    <div class="panel">
+
+        <h3>Administración de usuarios</h3>
+
+        <p>
+            Registra usuarios y administra sus roles
+            y permisos dentro de VentasPro.
+        </p>
+
+        <!-- FORMULARIO DE USUARIOS -->
+
+        <form id="form-usuario" class="form-producto">
+
+            <input type="hidden" id="id-usuario">
+
+            <h3 id="titulo-form-usuario">
+                Registrar nuevo usuario
+            </h3>
+
+            <div class="campos-producto">
+
+                <div>
+                    <label for="nombre-usuario">
+                        Nombre completo
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nombre-usuario"
+                        placeholder="Ej. Carlos Hernández"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label for="correo-usuario">
+                        Correo electrónico
+                    </label>
+
+                    <input
+                        type="email"
+                        id="correo-usuario"
+                        placeholder="usuario@ventas.com"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label for="password-usuario">
+                        Contraseña
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password-usuario"
+                        placeholder="Mínimo 8 caracteres"
+                        minlength="8"
+                        autocomplete="new-password"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label for="rol-usuario">
+                        Rol del usuario
+                    </label>
+
+                    <select id="rol-usuario" required>
+
+                        <option value="">
+                            Seleccionar rol
+                        </option>
+
+                        <option value="administrador">
+                            Administrador
+                        </option>
+
+                        <option value="gerente">
+                            Gerente
+                        </option>
+
+                        <option value="vendedor">
+                            Vendedor
+                        </option>
+
+                        <option value="cliente">
+                            Cliente
+                        </option>
+
+                    </select>
+                </div>
+
+            </div>
+
+            <button
+                type="submit"
+                id="btn-guardar-usuario"
+                class="btn-guardar"
+            >
+                + Registrar usuario
+            </button>
+
+            <button
+                type="button"
+                id="btn-cancelar-usuario"
+                class="btn-cancelar"
+                style="display: none;"
+            >
+                Cancelar edición
+            </button>
+
+            <p id="mensaje-usuario" role="status"></p>
+
+        </form>
+
+        <!-- LISTADO DE USUARIOS -->
+
+        <div style="margin: 20px 0;">
+
+            <button
+                type="button"
+                id="btn-actualizar-usuarios"
+                class="btn-guardar"
+            >
+                🔄 Actualizar usuarios
+            </button>
+
+        </div>
+
+        <div style="overflow-x: auto;">
+
+            <table
+                id="tabla-usuarios"
+                style="width: 100%; border-collapse: collapse;"
+            >
+
+                <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Correo electrónico</th>
+                        <th>Rol</th>
+                        <th>Fecha de registro</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="lista-usuarios">
+
+                    <tr>
+                        <td colspan="7">
+                            Cargando usuarios...
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+        </main>
+
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script src="app.js?v=2"></script>
+
+</body>
+</html>
